@@ -1,0 +1,27 @@
+<h1 >User Details </h1>
+<%= link_to 'posts listing', users_path %> 
+
+<% if logged_in && @user == current_user %>
+
+<%= link_to 'Delete', user_path(@user), data: { turbo_confirm: 'Are you sure?', turbo_method: :delete }  %>
+<% end %>
+
+<div class="container">
+<h2 class="text-center"><%= @user.username %></h2>
+
+<p class="text-center"> <%= @user.email %></p>
+</div>
+<div >
+<%= gravatar_for @user,class:"rounded mx-auto d-block"  %>
+</div>
+<div class="text-center mt-4">
+<% if logged_in && @user == current_user %>
+<%= link_to 'edit profile', edit_user_path(@user) %>
+<% end %>
+</div>
+
+<h1 class="text-center">POSTS</h1>
+<%= link_to 'create a post', new_post_path %>
+<%= render 'posts/post' %>
+
+

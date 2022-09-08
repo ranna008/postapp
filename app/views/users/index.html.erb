@@ -1,0 +1,26 @@
+<h1 class="text-center">Bloggers</h1>
+<div class="container">
+<% @users.each do |p| %>
+    <div class="row justify-content-md-center">
+    <div class="col-8 mt-4">
+<div class="card text-center shadow  mb-5 bg-body rounded">
+  <div class="card-header">
+    <%= p.username %>
+  </div>
+  <div class="card-body">
+  
+    
+    <%= link_to 'Show', user_path(p.id),class:"btn btn-primary" %>
+    <% if logged_in && p == current_user %>
+     <%= link_to 'Edit', edit_user_path(p.id),class:"btn btn-primary" %>
+     <%= link_to 'Delete', user_path(p), data: { turbo_confirm: 'Are you sure?', turbo_method: :delete },class:"btn btn-primary"  %>
+    <% end %>
+  </div>
+  <div class="card-footer text-muted">
+    2 days ago
+  </div>
+  </div>
+</div>
+</div>
+<% end %>
+</div>
