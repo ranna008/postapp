@@ -1,11 +1,48 @@
-<h1 >Article Details </h1>
+<h1 class="text-center">Article Details </h1>
+<% pre_favour = @post.favourites.find { |favourite| favourite.user_id == current_user.id} %>
+<% if pre_favour %>
+  <%= button_to 'unfavourite', post_favourite_path(@post, pre_favour), method: :delete %>
+<% else %>
+  <%= button_to 'favourite', post_favourites_path(@post), method: :post %>
+<% end %>
 <%= link_to 'posts listing', posts_path %> 
 <% if logged_in && @post.user == current_user %>
 <%= link_to 'Edit', edit_post_path(@post) %>
 <%= link_to 'Delete', post_path(@post), data: { turbo_confirm: 'Are you sure?', turbo_method: :delete }  %>
 <% end %>
-<div class="container">
-<h2 class="text-center"><%= @post.title %></h2>
-
-<p class="text-center"> <%= @post.description %></p>
+<div class="row text-center">
+<div class="col-sm-7">
+  <h2 class="text-center"><%= @post.title %></h2>
+  <p class="text-center"> <%= @post.description %></p>
 </div>
+<% if logged_in  %>
+    <div class="col text-center comment-form">
+         <h3> <%= @post.comments.count %> comments</h3>
+         <p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+         <% pre_like = @post.likes.find { |like| like.user_id == current_user.id} %>
+<% if pre_like %>
+  <%= button_to '👎', post_like_path(@post, pre_like), method: :delete %>
+<% else %>
+  <%= button_to '👍', post_likes_path(@post), method: :post %>
+<% end %>
+
+   
+			<hr />
+			<h3 class="subtitle is-3">Leave a reply</h3>
+	 		<%= render 'comments/form' %>
+	
+       <% if @post.comments.count != 0  %>
+       <%= render @post.comments.order(id: :desc) %>
+        <% end %>
+    </div>
+ <% end %>
+</div>
+
+
+
+
+       
+
+        
+		
+        

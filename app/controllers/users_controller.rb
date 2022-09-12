@@ -46,13 +46,14 @@ class UsersController < ApplicationController
         session[:user_id] = nil
         flash[:notice] = "your account has been successfully removed"
         redirect_to posts_path
+    end
 
     private
-    def set_user
+      def set_user
         @user = User.find(params[:id])
       end
 
-    def user_params
+     def user_params
         params.require(:user).permit(:username,:password,:email)
      end
 

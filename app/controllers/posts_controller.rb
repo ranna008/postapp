@@ -7,7 +7,8 @@ class PostsController < ApplicationController
  end
 
  def show
-    # byebug
+   #  byebug
+   
     
  end
 
